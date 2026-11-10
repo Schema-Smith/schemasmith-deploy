@@ -1,0 +1,11 @@
+{
+  "Schema": "public",
+  "Name": "widget",
+  "Columns": [
+    { "Name": "id", "DataType": "INTEGER", "Nullable": false },
+    { "Name": "name", "DataType": "VARCHAR(50)" }
+  ],
+  "Indexes": [
+    { "Name": "pk_widget", "PrimaryKey": true, "Unique": true, "IndexColumns": "id" }
+  ]
+}

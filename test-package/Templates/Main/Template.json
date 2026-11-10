@@ -1,0 +1,10 @@
+{
+  "Name": "Main",
+  "DatabaseIdentificationScript": "SELECT datname FROM pg_database WHERE datname = 'selftest'",
+  "ScriptFolders": [
+    {
+      "FolderPath": "Before Scripts",
+      "QuenchSlot": "Before"
+    }
+  ]
+}

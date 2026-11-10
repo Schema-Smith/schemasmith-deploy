@@ -1,0 +1,36 @@
+# Runs this branch's action against a throwaway PostgreSQL container, with one deliberately broken script, to check
+# the job summary, the annotation on the failing file and the pull-request comment as GitHub renders them.
+name: Action self-test
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_DB: selftest
+        ports: [ '5432:5432' ]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - id: deploy
+        uses: ./
+        continue-on-error: true
+        with:
+          product-path: test-package
+          server: localhost
+          user: postgres
+          pr-comment: 'true'
+      - name: Outputs
+        run: |
+          echo "exit-code: ${{ steps.deploy.outputs.exit-code }}"
+          echo "summary-path: ${{ steps.deploy.outputs.summary-path }}"

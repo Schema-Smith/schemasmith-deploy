@@ -1,0 +1,6 @@
+{
+  "Name": "ActionSelfTest",
+  "Platform": "PostgreSQL",
+  "TemplateOrder": [ "Main" ],
+  "ScriptFolders": []
+}
